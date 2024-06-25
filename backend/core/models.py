@@ -1,5 +1,5 @@
 from django.db import models
-from .utils.model_abstracts import Model
+from utils.model_abstracts import Model
 from django_extensions.db.models import (
     TimeStampedModel,
     ActivatorModel,
