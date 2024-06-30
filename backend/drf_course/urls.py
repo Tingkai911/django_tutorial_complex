@@ -16,15 +16,23 @@ Including another URLconf
 from django.urls import path
 from django.contrib import admin
 from core import views as core_views
+from ecommerce import views as ecommerce_views
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
 
 router = routers.DefaultRouter()
 
+# Wire up the GenericViewSet, different from APIView
+# Provides many inbuilt URL
+# Uses regex endpoint
+router.register(r'item', ecommerce_views.ItemViewSet, basename='item')
+router.register(r'order', ecommerce_views.OrderViewSet, basename='order')
+
 urlpatterns = router.urls
 
+# The trailing slash is important
 urlpatterns += [
     path('admin/', admin.site.urls),
-    path('contact/', core_views.ContactAPIView.as_view()),
+    path('contact/', core_views.ContactAPIView.as_view()),  # Wire APIView
     path('api-token-auth/', obtain_auth_token),  # gives us access to token auth
 ]
